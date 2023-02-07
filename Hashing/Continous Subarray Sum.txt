@@ -1,0 +1,26 @@
+class Solution {
+
+    public boolean checkSubarraySum(int[] nums, int k) {
+        int temp=0;
+        if(nums.length<2) {
+            return false;
+        }
+        
+        HashMap <Integer, Integer> hash = new HashMap<Integer, Integer>();
+        hash.put(0, -1);
+        for (int i=0; i<nums.length; i++) {
+            Integer x = nums[i];
+            temp=(temp+x)%k;
+            Integer st = hash.get(temp);
+            
+            if(st!=null) {
+                if(i-st>1)
+                    return true;
+            } else {
+                hash.put(temp, i);
+            }       
+        }
+        
+        return false;
+    }
+}
