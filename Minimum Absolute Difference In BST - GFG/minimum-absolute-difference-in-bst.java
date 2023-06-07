@@ -106,20 +106,19 @@ struct Node {
 */
 class Solution {
     int ans;
-    int prev;
-    void solve(Node root) {
+    void solve(Node root, int[] prev) {
         if(root == null) return;
         
-        solve(root.left);
-        ans = Math.min(ans, Math.abs(root.data - prev));
-        prev=root.data;
-        solve(root.right);
+        solve(root.left, prev);
+        ans = Math.min(ans, Math.abs(root.data - prev[0]));
+        prev[0] = root.data;
+        solve(root.right, prev);
         
     }
     
     int absolute_diff(Node root) {
-        ans = Integer.MAX_VALUE; prev=Integer.MAX_VALUE;
-        solve(root);
+        ans = Integer.MAX_VALUE;
+        solve(root, new int[]{ Integer.MAX_VALUE });
         return ans;
     }
 }
